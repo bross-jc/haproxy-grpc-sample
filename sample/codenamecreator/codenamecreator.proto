@@ -8,6 +8,7 @@ message NameRequest {
 
 message NameResult {
     string name = 1;
+    string server = 2;
 }
 
 service CodenameCreator {

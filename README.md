@@ -12,3 +12,4 @@ docker-compose up
 ```
 
 You should see the client connect through HAProxy to the gRPC server and get a stream of "codenames".
+You should see the client maintain the connection to the same server.

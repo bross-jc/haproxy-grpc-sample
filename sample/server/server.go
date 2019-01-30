@@ -7,6 +7,7 @@ import (
 	"log"
 	"math/rand"
 	"net"
+	"os"
 	"strings"
 	"time"
 
@@ -93,7 +94,8 @@ func (s *codenameServer) KeepGettingCodenames(stream creator.CodenameCreator_Kee
 			codename = generator.generate(category)
 		}
 
-		result := &creator.NameResult{Name: codename}
+		server_number := os.Getenv("SERVER_NUMBER")
+		result := &creator.NameResult{Name: codename, Server: server_number}
 		err := stream.Send(result)
 		if err != nil {
 			return err
@@ -123,6 +125,8 @@ func main() {
 	creator.RegisterCodenameCreatorServer(grpcServer, &codenameServer{})
 
 	log.Println("Listening on address ", address)
+	server_number := os.Getenv("SERVER_NUMBER")
+	log.Println("Server number", server_number)
 	err = grpcServer.Serve(lis)
 	if err != nil {
 		log.Fatalf("Failed to serve: %v", err)

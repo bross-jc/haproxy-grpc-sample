@@ -69,7 +69,7 @@ func getCodenamesStreamingExample(ctx context.Context, client creator.CodenameCr
 				log.Fatalf("%v", err)
 			}
 
-			log.Printf("Received: %s\n", in.Name)
+			log.Printf("Received: %s from: %s\n", in.Name, in.Server)
 		}
 	}()
 

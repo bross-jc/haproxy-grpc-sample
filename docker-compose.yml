@@ -7,6 +7,16 @@ services:
     build:
       context: ./sample
       dockerfile: Dockerfile.server
+    environment:
+    - "SERVER_NUMBER=1"
+
+  server2:
+    image: haproxytechblog/grpc-sample-server
+    build:
+      context: ./sample
+      dockerfile: Dockerfile.server
+    environment:
+    - "SERVER_NUMBER=2"
 
   haproxy:
     image: haproxytech/haproxy-ubuntu:1.9.2
@@ -18,6 +28,17 @@ services:
     - server
 
   client:
+    image: haproxytechblog/grpc-sample-client
+    build:
+      context: ./sample
+      dockerfile: Dockerfile.client
+    environment:
+    - "SERVER_ADDRESS=haproxy:3001"
+    - "TLS_CERT=haproxy.crt"
+    depends_on:
+    - haproxy
+
+  client2:
     image: haproxytechblog/grpc-sample-client
     build:
       context: ./sample
